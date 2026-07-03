@@ -15,14 +15,6 @@ class Solution(object):
         temp1=headA
         temp2=headB
         while temp1!=temp2:
-            temp1=temp1.next
-            temp2=temp2.next
-            if temp1==temp2:
-                return temp1
-            if temp1==None:
-                temp1=headB
-            if temp2==None:
-                temp2=headA
+            temp1 = temp1.next if temp1 else headB
+            temp2 = temp2.next if temp2 else headA
         return temp1
-            
-        
