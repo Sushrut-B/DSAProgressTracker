@@ -7,19 +7,17 @@ class Solution(object):
     def rotateRight(self, head, k):
         if not head or not head.next:
             return head
+        temp=head
         length=1
-        tail=head
-        while tail.next:
-            tail=tail.next
+        while temp.next:
+            temp=temp.next
             length+=1
+        temp.next=head
         k=k%length
-        if k==0:
-            return head
-        tail.next=head
-        steps=length-k
-        newtail=head
-        for _ in range(steps-1):
-            newtail=newtail.next
-        newhead=newtail.next
-        newtail.next=None
-        return newhead
+        end=length-k
+        while end >0:
+            temp=temp.next
+            end-=1
+        head=temp.next
+        temp.next=None
+        return head
