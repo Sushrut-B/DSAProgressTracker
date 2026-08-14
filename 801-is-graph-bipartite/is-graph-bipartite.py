@@ -1,27 +1,29 @@
 class Solution(object):
     def isBipartite(self, graph):
         V = len(graph)
+
         colour = [-1] * V
 
-        def dfs(node):
-            for nei in graph[node]:
+        def bfs(start):
+            q = deque([start])
+            colour[start] = 1
 
-                if colour[nei] == -1:
-                    colour[nei] = 1 - colour[node]
+            while q:
+                node = q.popleft()
 
-                    if not dfs(nei):
+                for nei in graph[node]:
+                    if colour[nei] == -1:
+                        colour[nei] = 1 - colour[node]
+                        q.append(nei)
+
+                    elif colour[nei] == colour[node]:
                         return False
-
-                elif colour[nei] == colour[node]:
-                    return False
 
             return True
 
         for i in range(V):
             if colour[i] == -1:
-                colour[i] = 0
-
-                if not dfs(i):
+                if not bfs(i):
                     return False
 
         return True
